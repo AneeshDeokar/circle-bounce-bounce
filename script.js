@@ -1,10 +1,8 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    const stickman = document.getElementById('stickman');
+    const circle = document.getElementById('circle');
     const gameContainer = document.getElementById('game-container');
 
-    let stickmanPosition = {
+    let circlePosition = {
         x: 50,
         y: 0
     };
@@ -15,45 +13,45 @@ document.addEventListener('DOMContentLoaded', () => {
     let jumpSpeed = 5;
     let moveSpeed = 5;
 
-    function moveStickman() {
-        stickman.style.left = `${stickmanPosition.x}px`;
-        stickman.style.bottom = `${stickmanPosition.y}px`;
+    function moveCircle() {
+        circle.style.left = `${circlePosition.x}px`;
+        circle.style.bottom = `${circlePosition.y}px`;
     }
 
     function jump() {
         if (isJumping) return;
         isJumping = true;
         let upInterval = setInterval(() => {
-            if (stickmanPosition.y >= jumpHeight) {
+            if (circlePosition.y >= jumpHeight) {
                 clearInterval(upInterval);
                 let downInterval = setInterval(() => {
-                    if (stickmanPosition.y <= 0) {
+                    if (circlePosition.y <= 0) {
                         clearInterval(downInterval);
-                        stickmanPosition.y = 0;
+                        circlePosition.y = 0;
                         isJumping = false;
                     } else {
-                        stickmanPosition.y -= gravity;
-                        moveStickman();
+                        circlePosition.y -= gravity;
+                        moveCircle();
                     }
                 }, 20);
             } else {
-                stickmanPosition.y += jumpSpeed;
-                moveStickman();
+                circlePosition.y += jumpSpeed;
+                moveCircle();
             }
         }, 20);
     }
 
     function control(event) {
         if (event.key === 'ArrowLeft') {
-            stickmanPosition.x -= moveSpeed;
+            circlePosition.x -= moveSpeed;
         } else if (event.key === 'ArrowRight') {
-            stickmanPosition.x += moveSpeed;
+            circlePosition.x += moveSpeed;
         } else if (event.key === 'ArrowUp') {
             jump();
         }
-        moveStickman();
+        moveCircle();
     }
 
     document.addEventListener('keydown', control);
-    moveStickman();
+    moveCircle();
 });
